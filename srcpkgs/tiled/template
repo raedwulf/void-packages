@@ -1,0 +1,25 @@
+# Template file for 'tiled'
+pkgname=tiled
+version=1.4.3
+revision=1
+archs="i686 x86_64"
+build_style=qmake
+configure_args="SYSTEM_ZSTD=yes INSTALL_HEADERS=yes RPATH=no PREFIX=/usr"
+hostmakedepends="qt5-host-tools qt5-qmake pkg-config"
+makedepends="qt5-devel libglvnd-devel qt5-declarative-devel qt5-quickcontrols2-devel libxkbcommon-devel libzstd-devel"
+depends="desktop-file-utils gtk-update-icon-cache shared-mime-info"
+short_desc="A general purpose tile map editor, built to be flexible and easy to use"
+maintainer="Tai Chi Minh Ralph Eastwood <tcmreastwood@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="http://www.mapeditor.org"
+distfiles="https://github.com/bjorn/tiled/archive/v${version}.tar.gz"
+nocross=yes
+checksum=b45bb3c1aa08ce155c570092a6b7a8b5ac4bb320a0615e3257552f440f8db4dd
+
+do_build() {
+	make ${makejobs} ${make_build_args} ${make_build_target}
+}
+
+do_install() {
+	make STRIP=true PREFIX=/usr DESTDIR=${DESTDIR} INSTALL_ROOT=${DESTDIR} install
+}
